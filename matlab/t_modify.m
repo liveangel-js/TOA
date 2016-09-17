@@ -1,0 +1,15 @@
+t=load('sample_case001_true_time_out');
+base_count=load('sample_case001_input_base_count');
+user_count=load('sample_case001_input_user_count');
+deminsion = load('sample_case001_input_de');
+[base]=load('sample_case001_input_base_location');
+[t_t]=load('sample_case001_input_toa');
+[x_ans] = load('sample_case001_ans.txt');
+base_location_start_row = 3+1;
+base_location_end_row = 3 + base_count;
+user_toa_start_row = base_count+3+1;
+user_toa_end_row = user_toa_start_row + user_count -1;
+[t_t_m]=reshape(t_t,base_count*user_count,1);
+[t_m]=reshape(t,base_count*user_count,1);
+p=polyfit(t_t_m,t_m,1);
+[per_length]=3*10^8.*([t_t]*p(1)+p(2));
