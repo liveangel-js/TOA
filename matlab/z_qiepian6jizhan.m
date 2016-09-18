@@ -97,7 +97,9 @@ xlabel('X坐标／米','FontSize',15);
 ylabel('Y坐标／米','FontSize',15);
 set(gca,'fontsize',12); 
 
-saveas(1,'位置误差分析sample case001','jpg');
-saveas(2,'距离误差分析sample case001','jpg');
-saveas(3,'终端分布误差图sample case001','jpg');
-save('output_sample_case_001.txt','x','-ascii');
+%saveas(1,'位置误差分析sample case001','jpg');
+%saveas(2,'距离误差分析sample case001','jpg');
+%saveas(3,'终端分布误差图sample case001','jpg');
+%save('output_sample_case_001.txt','x','-ascii');
+%save('距离cdf_sample_case_001.txt','GC_cdf','-ascii');
+%save('位置cdf_sample_case_001.txt','HC_cdf','-ascii');
