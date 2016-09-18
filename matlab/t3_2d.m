@@ -1,15 +1,15 @@
 clc;
 clear;
-base_count=load('out/case024_base_count.txt');
-user_count=load('out/case024_user_count.txt');
-deminsion = load('out/case024_dimension.txt');
-[base]=load('out/case024_base_location.txt');
-[t_t]=load('out/case024_toa.txt');
+base_count=load('out/case021_base_count.txt');
+user_count=load('out/case021_user_count.txt');
+deminsion = load('out/case021_dimension.txt');
+[base]=load('out/case021_base_location.txt');
+[t_t]=load('out/case021_toa.txt');
 base_location_start_row = 3+1;
 base_location_end_row = 3 + base_count;
 user_toa_start_row = base_count+3+1;
 user_toa_end_row = user_toa_start_row + user_count -1;
-[p]=[0.749758269 -1.26E-09];
+[p]=[0.706865565 -1.18E-09];
 [per_length]=3*10^8.*([t_t]*p(1)+p(2));%æ‡¿Î–ﬁ’˝
 
 detector_number=6;
@@ -29,4 +29,9 @@ end
 x(n,1:2)=(2.*A(:,1:2))\B;
 end
 
-plot(x(:,1),x(:,2),'.');
+plot(x(:,1),x(:,2),'.','MarkerSize',6);
+hold on;
+
+yy=polyfit(x(:,1),x(:,2),2);
+y1=polyval(yy,x(:,1));
+plot(x(:,1),y1,'.'); 
