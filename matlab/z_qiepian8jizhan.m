@@ -16,7 +16,7 @@ user_toa_end_row = user_toa_start_row + user_count -1;
 p=polyfit(t_t_m,t_m,1);
 [per_length]=3*10^8.*([t_t]*p(1)+p(2));%æ‡¿Î–ﬁ’˝
 
-detector_number=8;
+detector_number=6;
 [QQ QC]=sort(per_length,2);
 d=QQ(:,1:detector_number);
 base_N=QC(:,1:detector_number);
@@ -26,25 +26,25 @@ for r=1:detector_number
 end
 combos=combntns(1:detector_number,2)
 for n=1:user_count
+    for j=10:20
 for m=1:detector_number*(detector_number-1)/2
 A(m,1:3)=co_base(n,(combos(m,1)*3-2):combos(m,1)*3)-co_base(n,(combos(m,2)*3-2):combos(m,2)*3);
 B(m,1)=(d(n,combos(m,2)))^2-(d(n,combos(m,1)))^2+(co_base(n,(combos(m,1)*3-2):combos(m,1)*3)-co_base(n,(combos(m,2)*3-2):combos(m,2)*3))*(co_base(n,(combos(m,1)*3-2):combos(m,1)*3)+co_base(n,(combos(m,2)*3-2):combos(m,2)*3))';
 end
-x(n,1:2)=(2.*A(:,1:2))\(B-A(:,3).*1.5);
-x(n,3)=1.5;
-x_n(1,1:2)=(2.*A(:,1:2))\(B-A(:,3).*1.5);
-x_n(1,3)=1.5;
-deta_imperfect(n) = sum(abs(sqrt(sum((repmat(x_n,base_count,1)-base).^2,2))-(per_length(n,:)')));
+x_n(1,1:2)=(2.*A(:,1:2))\(B-A(:,3).*j*0.1);
+x_n(1,3)=j*0.1;
+deta(j-9) = sum(abs(sqrt(sum((repmat(x_n,detector_number,1)-base(QC(n,1:detector_number),1:3)).^2,2))-(per_length(n,QC(n,1:detector_number))')));
+    end
+    deta_0(n,:)=deta;
+[PP PC]=min(deta,[],2);
+x(n,3)=(PC-1)/10+1;
+x(n,1:2)=(2.*A(:,1:2))\(B-A(:,3).*x(n,3));
 end
-deta=deta_imperfect';
-deta_nom=(sum(deta)/1100)/base_count;
-
-%dx=x-x_ans(:,1:2);
-%figure(1);
-%plot(base(:,1),base(:,2),'.');
-%hold on;
-%error=sqrt(dx(:,1).^2+dx(:,2).^2);
-%scatter3(x_ans(:,1),x_ans(:,2),error,[],error);
-%colorbar;
-%figure(2);
-%hist(dx,80);
+dx=x-x_ans;
+plot(base(:,1),base(:,2),'.');
+hold on;
+error=sqrt(dx(:,1).^2+dx(:,2).^2);
+scatter3(x_ans(:,1),x_ans(:,2),error,[],error);
+colorbar;
+figure(2);
+hist(dx,80);

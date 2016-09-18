@@ -35,6 +35,7 @@ x_n(1,1:2)=(2.*A(:,1:2))\(B-A(:,3).*j*0.1);
 x_n(1,3)=j*0.1;
 deta(j-9) = sum(abs(sqrt(sum((repmat(x_n,base_count,1)-base).^2,2))-(per_length(n,:)')));
     end
+    deta_0(n,:)=deta;
 [PP PC]=min(deta,[],2);
 x(n,3)=(PC-1)/10+1;
 x(n,1:2)=(2.*A(:,1:2))\(B-A(:,3).*x(n,3));
