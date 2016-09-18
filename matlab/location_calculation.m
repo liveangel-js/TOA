@@ -1,12 +1,12 @@
 clc;
 clear;
-t=load('out/sample_case005_true_toa.txt');
-base_count=load('out/sample_case005_base_count.txt');
-user_count=load('out/sample_case005_user_count.txt');
-deminsion = load('out/sample_case005_dimension.txt');
-[base]=load('out/sample_case005_base_location.txt');
-[t_t]=load('out/sample_case005_toa.txt');
-[x_ans] = load('out/sample_case005_ans.txt');
+t=load('out/sample_case001_true_toa.txt');
+base_count=load('out/sample_case001_base_count.txt');
+user_count=load('out/sample_case001_user_count.txt');
+deminsion = load('out/sample_case001_dimension.txt');
+[base]=load('out/sample_case001_base_location.txt');
+[t_t]=load('out/sample_case001_toa.txt');
+[x_ans] = load('out/sample_case001_ans.txt');
 base_location_start_row = 3+1;
 base_location_end_row = 3 + base_count;
 user_toa_start_row = base_count+3+1;
@@ -21,7 +21,9 @@ detector_number=8;
 d=QQ(:,1:detector_number);
 base_N=QC(:,1:detector_number);
 co_base_j=base(base_N,:);
-co_base=cell2mat(mat2cell(co_base_j,[user_count user_count user_count user_count user_count user_count user_count user_count])');
+for r=1:detector_number
+    co_base(:,(3*r-2):3*r)=co_base_j(((r-1)*user_count+1):r*user_count,1:3);
+end
 combos=combntns(1:detector_number,2)
 for n=1:user_count
 for m=1:detector_number*(detector_number-1)/2
